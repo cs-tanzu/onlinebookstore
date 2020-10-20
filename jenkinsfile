@@ -1,0 +1,25 @@
+node{
+    stage("git checkout"){
+    git branch: 'J2EE', credentialsId: 'Git-credentials', url: 'https://github.com/raja6522/onlinebookstore.git' 
+    }
+    stage("Build package"){
+        def mavenHome = tool name: "Maven-3.6.3"
+       sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("Sonarqube execution"){
+        def mavenHome = tool name: "Maven-3.6.3"
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    stage("Build image"){
+        sh "docker build -t raja6522/onlinebookstore ."
+    }
+    stage("Push image"){
+        withCredentials([string(credentialsId: 'Dockerhub-credentials', variable: 'Docker_Hub_password')]) {
+         sh "docker login -u raja6522 -p ${Docker_Hub_password}"
+}
+         sh "docker push raja6522/onlinebookstore"
+    }
+     stage("Deploy image to K8s"){
+         sh "kubectl apply -f onlinebookstore.yml"
+     }
+}

@@ -29,8 +29,8 @@ spec:
       targetPort: 8080
   selector:
     app: onlinebookstore
-    
-    ---
+ 
+---
 kind: ConfigMap 
 apiVersion: v1 
 metadata:

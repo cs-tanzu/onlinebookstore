@@ -6,7 +6,7 @@
   <packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.host.url>http://13.232.124.187:9000/</sonar.host.url>
+		<sonar.host.url>http://13.233.227.91:9000/</sonar.host.url>
 		<sonar.login>admin</sonar.login>
 		<sonar.password>admin</sonar.password>
 	</properties>
